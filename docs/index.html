@@ -1,13 +1,15 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080d0b">
-  <meta name="description" content="Meet YapperBrasilBot, the bot built to make Comunidade Brasil safer, more organized and more fun.">
-  <meta property="og:title" content="YapperBrasilBot | Comunidade Brasil">
-  <meta property="og:description" content="Moderation, security, XP, economy, giveaways and more.">
-  <title>YapperBrasilBot — Official Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b100e">
+  <meta name="description" content="YapperBrasilBot — moderação, segurança, níveis, economia e diversão para sua comunidade.">
+  <meta property="og:title" content="YapperBrasilBot">
+  <meta property="og:description" content="Seu servidor, mais organizado. Conheça o YapperBrasilBot.">
+  <meta property="og:type" content="website">
+  <title>YapperBrasilBot — Seu servidor, mais organizado</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,48 +17,157 @@
 
   <style>
     :root {
-      --bg: #080d0b;
-      --panel: #101713;
-      --panel2: #141e18;
-      --green: #40f59b;
-      --green2: #19c878;
-      --text: #f2f8f4;
-      --muted: #9aa99f;
+      color-scheme: dark;
+      --bg: #0b100e;
+      --surface: #111914;
+      --surface-2: #17221b;
+      --surface-3: #1b2920;
+      --green: #48f59b;
+      --green-dark: #20c777;
+      --text: #f3f8f4;
+      --muted: #a1afa5;
       --border: rgba(255,255,255,.09);
-      --radius: 20px;
+      --radius: 18px;
+      --max: 1160px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 95px; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
     body {
-      background: var(--bg);
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 10% 0%, rgba(38,204,119,.12), transparent 35%),
+        radial-gradient(ellipse at 95% 35%, rgba(36,116,70,.10), transparent 35%),
+        var(--bg);
       color: var(--text);
       font-family: "DM Sans", sans-serif;
       line-height: 1.65;
       overflow-x: hidden;
     }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -1;
-      background:
-        radial-gradient(ellipse at 15% 5%, rgba(32,210,119,.12), transparent 35%),
-        radial-gradient(ellipse at 90% 45%, rgba(20,120,70,.09), transparent 35%);
-    }
+
+    body.modal-open { overflow: hidden; }
+
     a { color: inherit; text-decoration: none; }
-    button { font: inherit; cursor: pointer; }
-    .container { width: min(1120px, calc(100% - 40px)); margin: auto; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible {
+      outline: 2px solid var(--green);
+      outline-offset: 4px;
+    }
+
+    ::selection { background: var(--green); color: #06140b; }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .muted { color: var(--muted); }
+    .green { color: var(--green); }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--green);
+      background: rgba(72,245,155,.07);
+      border: 1px solid rgba(72,245,155,.18);
+      border-radius: 100px;
+      padding: 7px 12px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      flex: 0 0 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(72,245,155,.6);
+    }
+
+    h1, h2, h3 {
+      font-family: "Space Grotesk", sans-serif;
+      line-height: 1.15;
+      letter-spacing: -1px;
+    }
+
+    h1 { font-size: clamp(43px, 6vw, 76px); }
+    h2 { font-size: clamp(30px, 4vw, 47px); }
+    h3 { font-size: 19px; letter-spacing: -.4px; }
+
+    p { color: var(--muted); }
+
+    .gradient {
+      background: linear-gradient(100deg, #a1ffc8, var(--green), #24cb7a);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 46px;
+      padding: 12px 18px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 800;
+      transition: transform .2s, background .2s, border-color .2s;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: var(--green);
+      color: #07150c;
+    }
+
+    .btn-primary:hover { background: #79ffb6; }
+
+    .btn-secondary {
+      background: rgba(255,255,255,.035);
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover { border-color: rgba(72,245,155,.5); }
+
+    .btn-small { min-height: 38px; padding: 9px 13px; font-size: 12px; }
+
+    .icon {
+      display: grid;
+      place-items: center;
+      width: 47px;
+      height: 47px;
+      flex-shrink: 0;
+      border-radius: 14px;
+      background: rgba(72,245,155,.08);
+      border: 1px solid rgba(72,245,155,.13);
+      font-size: 22px;
+    }
+
+    /* NAVEGAÇÃO */
 
     .navbar {
       position: sticky;
       top: 0;
-      z-index: 20;
-      background: rgba(8,13,11,.82);
+      z-index: 50;
+      background: rgba(11,16,14,.87);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
     }
+
     .nav-inner {
       min-height: 76px;
       display: flex;
@@ -64,240 +175,656 @@
       justify-content: space-between;
       gap: 24px;
     }
+
     .brand {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 11px;
-      font-family: "Space Grotesk", sans-serif;
-      font-weight: 700;
-      font-size: 18px;
-      white-space: nowrap;
+      flex-shrink: 0;
     }
-    .brand-icon {
+
+    .brand-logo {
       display: grid;
       place-items: center;
-      width: 42px;
-      height: 42px;
-      background: linear-gradient(145deg, #48f5a0, #13894f);
-      color: #06170d;
+      width: 43px;
+      height: 43px;
       border-radius: 14px;
-      box-shadow: 0 0 25px rgba(64,245,155,.18);
-      font-size: 22px;
+      color: #06150b;
+      background: linear-gradient(145deg, #76ffb7, #22c979);
+      font-size: 23px;
+      box-shadow: 0 0 26px rgba(72,245,155,.12);
     }
-    .brand span small { display: block; color: var(--muted); font-size: 10px; font-family: "DM Sans", sans-serif; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; }
-    .nav-links { display: flex; align-items: center; gap: 25px; color: #b5c2b9; font-size: 13px; font-weight: 600; }
-    .nav-links a:hover { color: var(--green); }
-    .nav-cta, .btn {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 9px;
-      padding: 12px 18px;
-      border-radius: 12px;
-      font-weight: 800;
-      font-size: 14px;
-      transition: transform .2s, background .2s, border-color .2s;
-    }
-    .nav-cta, .btn-primary { color: #06170d; background: var(--green); }
-    .nav-cta:hover, .btn-primary:hover { background: #6ff9b5; transform: translateY(-2px); }
-    .btn-secondary { border: 1px solid var(--border); background: rgba(255,255,255,.035); }
-    .btn-secondary:hover { border-color: var(--green); transform: translateY(-2px); }
 
-    .menu-toggle {
+    .brand-name {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .brand-subtitle {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 23px;
+    }
+
+    .nav-links a {
+      color: #b8c5bc;
+      font-size: 12px;
+      font-weight: 700;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--green); }
+
+    .nav-actions { display: flex; align-items: center; gap: 9px; }
+
+    .menu-button {
       display: none;
       color: var(--text);
-      background: var(--panel);
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 8px 12px;
-      font-size: 22px;
+      font-size: 20px;
     }
 
-    .hero { padding: 105px 0 95px; position: relative; }
-    .hero-grid { display: grid; grid-template-columns: 1.12fr .88fr; align-items: center; gap: 60px; }
-    .eyebrow {
-      display: inline-flex;
+    /* INÍCIO */
+
+    .hero { padding: 100px 0 85px; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
       align-items: center;
-      gap: 9px;
-      color: var(--green);
-      background: rgba(64,245,155,.07);
-      border: 1px solid rgba(64,245,155,.18);
-      border-radius: 100px;
-      padding: 7px 12px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .3px;
-      margin-bottom: 25px;
+      gap: 65px;
     }
-    .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px var(--green); }
-    h1, h2, h3 { font-family: "Space Grotesk", sans-serif; line-height: 1.13; letter-spacing: -1.4px; }
-    h1 { font-size: clamp(42px, 5.6vw, 72px); max-width: 690px; }
-    .gradient-text { color: var(--green); }
-    .hero-description { color: var(--muted); font-size: 17px; max-width: 520px; margin: 25px 0 30px; }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-    .hero-note { display: flex; align-items: center; gap: 9px; margin-top: 28px; color: var(--muted); font-size: 12px; }
-    .hero-note strong { color: var(--text); }
-    .hero-visual { position: relative; }
-    .glow {
+
+    .hero h1 { margin-top: 25px; max-width: 700px; }
+
+    .hero-description {
+      max-width: 540px;
+      margin: 23px 0 28px;
+      font-size: 16px;
+      line-height: 1.9;
+    }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 11px; }
+
+    .hero-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 25px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .preview-wrap { position: relative; }
+
+    .preview-glow {
       position: absolute;
-      inset: 10% 0;
+      inset: 10%;
       background: var(--green);
-      opacity: .11;
-      filter: blur(85px);
+      opacity: .12;
+      filter: blur(75px);
       border-radius: 50%;
     }
-    .bot-card {
+
+    .preview {
       position: relative;
-      border: 1px solid rgba(64,245,155,.2);
-      background: linear-gradient(145deg, rgba(23,39,29,.96), rgba(12,19,15,.97));
-      border-radius: 28px;
-      padding: 27px;
-      box-shadow: 0 30px 100px rgba(0,0,0,.3);
-      transform: rotate(1deg);
+      padding: 23px;
+      border: 1px solid rgba(72,245,155,.2);
+      border-radius: 24px;
+      background: linear-gradient(145deg, #18271d, #0e1510);
+      box-shadow: 0 35px 100px rgba(0,0,0,.25);
     }
-    .bot-card-top { display: flex; align-items: center; justify-content: space-between; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
-    .bot-profile { display: flex; align-items: center; gap: 13px; }
-    .bot-avatar { width: 55px; height: 55px; display: grid; place-items: center; background: linear-gradient(145deg, #4cf6a2, #137848); border-radius: 17px; font-size: 29px; }
-    .bot-profile strong { display: block; font-size: 15px; }
-    .bot-profile small { color: var(--muted); font-size: 12px; }
-    .online { color: var(--green); font-size: 11px; font-weight: 800; background: rgba(64,245,155,.09); border-radius: 30px; padding: 6px 10px; }
-    .bot-message { background: rgba(255,255,255,.035); border: 1px solid var(--border); border-radius: 15px; padding: 17px; margin-top: 17px; }
-    .message-heading { font-size: 12px; font-weight: 800; margin-bottom: 9px; }
-    .message-line { display: flex; gap: 10px; align-items: center; color: #c3d0c7; font-size: 12px; margin: 8px 0; }
-    .check { color: var(--green); font-weight: 900; }
-    .mini-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 15px; }
-    .mini-stat { background: rgba(64,245,155,.055); border: 1px solid rgba(64,245,155,.12); border-radius: 13px; padding: 13px 8px; text-align: center; }
-    .mini-stat strong { display: block; color: var(--green); font-family: "Space Grotesk",sans-serif; font-size: 20px; }
-    .mini-stat span { display: block; font-size: 10px; color: var(--muted); }
-    .floating-tag { position: absolute; bottom: -22px; left: -25px; padding: 12px 16px; background: #17241b; border: 1px solid rgba(64,245,155,.23); border-radius: 13px; box-shadow: 0 15px 40px #0005; font-size: 12px; font-weight: 800; }
-    .floating-tag span { color: var(--green); }
 
-    .trust-strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: rgba(255,255,255,.018); }
-    .trust-inner { display: grid; grid-template-columns: repeat(4,1fr); padding: 25px 0; gap: 20px; }
-    .trust-item { display: flex; align-items: center; justify-content: center; gap: 10px; color: #c4d0c8; font-size: 13px; font-weight: 700; }
-    .trust-item span { font-size: 20px; }
+    .preview-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
 
-    section { padding: 95px 0; }
-    .section-head { max-width: 650px; margin-bottom: 42px; }
-    .section-label { color: var(--green); font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 13px; }
-    h2 { font-size: clamp(32px,4vw,48px); }
-    .section-head p { color: var(--muted); margin-top: 17px; font-size: 15px; }
-    .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 17px; }
-    .feature {
-      background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+    .preview-header .icon {
+      width: 53px;
+      height: 53px;
+      font-size: 27px;
+      background: linear-gradient(145deg, #7cffb7, #20b96d);
+    }
+
+    .preview-header strong { display: block; font-size: 14px; }
+    .preview-header small { color: var(--muted); font-size: 11px; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 9px;
+      border-radius: 100px;
+      background: rgba(72,245,155,.08);
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .preview-message {
+      margin-top: 17px;
+      padding: 17px;
+      background: rgba(255,255,255,.025);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .preview-message h3 { font-size: 14px; margin-bottom: 12px; }
+
+    .preview-line {
+      display: flex;
+      gap: 9px;
+      align-items: center;
+      padding: 6px 0;
+      font-size: 12px;
+      color: #c7d3ca;
+    }
+
+    .preview-line span { color: var(--green); }
+
+    .preview-stats {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    .preview-stat {
+      text-align: center;
+      padding: 12px 5px;
+      border-radius: 12px;
+      background: rgba(72,245,155,.045);
+      border: 1px solid rgba(72,245,155,.1);
+    }
+
+    .preview-stat b { display: block; font-size: 20px; }
+    .preview-stat small { display: block; font-size: 10px; color: var(--muted); }
+
+    .preview-caption {
+      color: var(--muted);
+      font-size: 10px;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    /* BARRA DE RECURSOS */
+
+    .quick-strip {
+      border-block: 1px solid var(--border);
+      background: rgba(255,255,255,.015);
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 20px;
+      padding: 22px 0;
+    }
+
+    .quick-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #d2ddd5;
+    }
+
+    .quick-item span { font-size: 20px; }
+
+    /* SEÇÕES */
+
+    section.content-section { padding: 90px 0; }
+
+    .section-heading { max-width: 700px; margin-bottom: 35px; }
+
+    .section-kicker {
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 10px;
+      font-weight: 900;
+      margin-bottom: 13px;
+    }
+
+    .section-heading p { margin-top: 14px; font-size: 14px; }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 15px;
+    }
+
+    .card {
+      padding: 24px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 26px;
-      transition: transform .25s, border-color .25s, background .25s;
+      background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+      transition: transform .22s, border-color .22s, background .22s;
     }
-    .feature:hover { transform: translateY(-5px); border-color: rgba(64,245,155,.3); background: rgba(64,245,155,.035); }
-    .feature-icon { width: 48px; height: 48px; display: grid; place-items: center; background: rgba(64,245,155,.09); border: 1px solid rgba(64,245,155,.13); border-radius: 14px; font-size: 23px; margin-bottom: 21px; }
-    .feature h3 { font-size: 19px; letter-spacing: -.4px; margin-bottom: 10px; }
-    .feature p { color: var(--muted); font-size: 13px; }
-    .feature-tag { display: inline-block; margin-top: 18px; font-size: 10px; color: var(--green); background: rgba(64,245,155,.07); padding: 5px 8px; border-radius: 6px; font-weight: 800; }
 
-    .security-section { background: linear-gradient(180deg, transparent, rgba(26,69,42,.12), transparent); }
-    .security-grid { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 65px; }
-    .security-list { display: grid; gap: 15px; margin-top: 27px; }
-    .security-row { display: flex; align-items: flex-start; gap: 13px; }
-    .security-icon { flex-shrink: 0; width: 35px; height: 35px; display: grid; place-items: center; border-radius: 10px; background: rgba(64,245,155,.09); color: var(--green); }
-    .security-row strong { display: block; font-size: 14px; margin-bottom: 3px; }
-    .security-row p { color: var(--muted); font-size: 12px; }
-    .security-panel { border: 1px solid var(--border); background: var(--panel); padding: 25px; border-radius: 22px; }
-    .panel-title { display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 800; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
-    .log-row { display: grid; grid-template-columns: 36px 1fr auto; gap: 12px; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--border); }
-    .log-icon { width: 36px; height: 36px; display: grid; place-items: center; background: rgba(255,255,255,.045); border-radius: 11px; }
-    .log-copy strong { display: block; font-size: 12px; }
-    .log-copy small { display: block; color: var(--muted); font-size: 11px; }
-    .log-status { font-size: 10px; color: var(--green); background: rgba(64,245,155,.08); padding: 5px 7px; border-radius: 6px; }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(72,245,155,.28);
+      background: rgba(72,245,155,.035);
+    }
 
-    .commands-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 15px; }
-    .command-group { padding: 23px; border-radius: 17px; border: 1px solid var(--border); background: rgba(255,255,255,.02); }
-    .command-group h3 { font-size: 17px; letter-spacing: -.4px; margin-bottom: 17px; display: flex; align-items: center; gap: 10px; }
-    .command { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 10px 12px; background: rgba(0,0,0,.18); border-radius: 9px; margin-top: 7px; }
-    .command code { font-size: 12px; color: var(--green); font-family: Consolas, monospace; }
-    .command span { font-size: 11px; color: var(--muted); text-align: right; }
+    .card .icon { margin-bottom: 17px; }
+    .card h3 { margin-bottom: 9px; }
+    .card p { font-size: 12px; line-height: 1.8; }
 
-    .cta-section { padding: 25px 0 100px; }
-    .cta-card {
-      position: relative;
-      overflow: hidden;
-      padding: 65px 30px;
+    .tag {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 5px 8px;
+      border-radius: 6px;
+      background: rgba(72,245,155,.07);
+      color: var(--green);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .7px;
+    }
+
+    .soft-section {
+      background: linear-gradient(180deg, transparent, rgba(30,90,52,.09), transparent);
+    }
+
+    /* COMANDOS */
+
+    .command-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .search-wrap { position: relative; flex: 1 1 250px; }
+
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      font-size: 15px;
+    }
+
+    .search-input {
+      width: 100%;
+      min-height: 47px;
+      padding: 12px 15px 12px 42px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      color: var(--text);
+      outline: none;
+    }
+
+    .search-input:focus { border-color: rgba(72,245,155,.55); }
+    .search-input::placeholder { color: #829187; }
+
+    .filter-select {
+      min-height: 47px;
+      min-width: 175px;
+      padding: 10px 13px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .command-count {
+      font-size: 11px;
+      color: var(--muted);
+      margin: 14px 0;
+    }
+
+    .command-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 12px;
+    }
+
+    .command-card {
+      padding: 18px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.018);
+      border-radius: 14px;
+      min-width: 0;
+    }
+
+    .command-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .command-name {
+      color: var(--green);
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 14px;
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+
+    .command-category {
+      padding: 4px 7px;
+      border-radius: 6px;
+      background: rgba(255,255,255,.045);
+      color: #bdcabe;
+      font-size: 9px;
+      white-space: nowrap;
+    }
+
+    .command-card p { font-size: 12px; margin-top: 10px; }
+
+    .command-usage {
+      margin-top: 12px;
+      padding: 9px 10px;
+      border-radius: 8px;
+      background: rgba(0,0,0,.2);
+      color: #bdcabe;
+      font-size: 11px;
+      font-family: Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+
+    .empty-state {
+      display: none;
+      padding: 35px 15px;
       text-align: center;
-      border: 1px solid rgba(64,245,155,.22);
-      border-radius: 27px;
-      background: radial-gradient(ellipse at top, rgba(64,245,155,.12), transparent 65%), #101713;
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      border-radius: 14px;
     }
-    .cta-card h2 { max-width: 650px; margin: auto; }
-    .cta-card p { color: var(--muted); max-width: 500px; margin: 17px auto 25px; font-size: 14px; }
-    .cta-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
 
-    .faq-list { max-width: 800px; display: grid; gap: 10px; }
-    details { border: 1px solid var(--border); background: rgba(255,255,255,.02); border-radius: 13px; padding: 18px 20px; }
-    summary { cursor: pointer; font-size: 14px; font-weight: 800; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+    .command-note {
+      padding: 13px 15px;
+      margin-top: 18px;
+      border: 1px solid rgba(72,245,155,.12);
+      border-radius: 12px;
+      background: rgba(72,245,155,.035);
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* SOBRE O SITE */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .about-box {
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .about-box h3 { margin-bottom: 12px; }
+    .about-box p { font-size: 13px; line-height: 1.9; }
+
+    .about-points { display: grid; gap: 13px; margin-top: 20px; }
+
+    .about-point {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12px;
+      color: #d4dfd6;
+    }
+
+    .about-point span { color: var(--green); }
+
+    /* AJUDA E FAQ */
+
+    .help-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 15px;
+      margin-bottom: 45px;
+    }
+
+    .help-card {
+      padding: 22px;
+      border-radius: 15px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .help-card .icon { margin-bottom: 15px; }
+    .help-card h3 { font-size: 16px; margin-bottom: 8px; }
+    .help-card p { font-size: 12px; }
+
+    .faq-list { display: grid; gap: 10px; max-width: 850px; }
+
+    details {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.018);
+      border-radius: 12px;
+      padding: 17px 19px;
+    }
+
+    summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      list-style: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
     summary::-webkit-details-marker { display: none; }
-    summary::after { content: "+"; color: var(--green); font-size: 21px; }
+    summary::after { content: "+"; color: var(--green); font-size: 20px; }
     details[open] summary::after { content: "−"; }
-    details p { color: var(--muted); font-size: 13px; margin-top: 13px; }
+    details p { margin-top: 12px; font-size: 12px; }
 
-    footer { border-top: 1px solid var(--border); padding: 30px 0; }
-    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-    .footer-copy { color: var(--muted); font-size: 12px; margin-top: 8px; }
-    .footer-links { display: flex; gap: 20px; color: var(--muted); font-size: 12px; }
+    /* CHAMADA FINAL */
+
+    .cta-section { padding: 15px 0 95px; }
+
+    .cta {
+      text-align: center;
+      padding: 60px 25px;
+      border-radius: 25px;
+      border: 1px solid rgba(72,245,155,.2);
+      background:
+        radial-gradient(ellipse at top, rgba(72,245,155,.12), transparent 65%),
+        var(--surface);
+    }
+
+    .cta h2 { max-width: 700px; margin: 15px auto; }
+    .cta p { max-width: 570px; margin: 0 auto 25px; font-size: 13px; }
+    .cta-actions { display: flex; justify-content: center; gap: 11px; flex-wrap: wrap; }
+
+    /* RODAPÉ */
+
+    footer { border-top: 1px solid var(--border); padding: 28px 0; }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy { margin-top: 8px; font-size: 10px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer-links a { color: var(--muted); font-size: 11px; }
     .footer-links a:hover { color: var(--green); }
-    .back-top { position: fixed; bottom: 20px; right: 20px; z-index: 10; width: 43px; height: 43px; border: 1px solid var(--border); border-radius: 13px; background: var(--panel2); color: var(--green); font-size: 20px; opacity: 0; pointer-events: none; transition: opacity .2s; }
+
+    .back-top {
+      position: fixed;
+      right: 19px;
+      bottom: 19px;
+      z-index: 40;
+      width: 43px;
+      height: 43px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: var(--surface-2);
+      color: var(--green);
+      font-size: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s;
+    }
+
     .back-top.visible { opacity: 1; pointer-events: auto; }
 
-    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s, transform .65s; }
-    .reveal.show { opacity: 1; transform: translateY(0); }
+    /* MODAL */
 
-    @media (max-width: 900px) {
-      .hero-grid, .security-grid { grid-template-columns: 1fr; gap: 50px; }
-      .hero { padding-top: 75px; }
-      .hero-visual { max-width: 550px; width: 100%; margin: auto; }
-      .features-grid { grid-template-columns: repeat(2,1fr); }
-      .nav-links { gap: 14px; }
-      .nav-links a { font-size: 12px; }
-      .nav-cta { padding: 10px 12px; font-size: 12px; }
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0,0,0,.75);
+      backdrop-filter: blur(8px);
     }
-    @media (max-width: 650px) {
-      .container { width: min(100% - 30px, 1120px); }
-      .menu-toggle { display: block; }
+
+    .modal.open { display: flex; }
+
+    .modal-card {
+      width: min(460px, 100%);
+      padding: 27px;
+      border: 1px solid rgba(72,245,155,.2);
+      border-radius: 20px;
+      background: #111914;
+      box-shadow: 0 25px 100px #0008;
+      animation: modalIn .18s ease-out;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(10px) scale(.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    .modal-head h3 { font-size: 20px; }
+
+    .modal-close {
+      width: 35px;
+      height: 35px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 19px;
+    }
+
+    .modal-card p { font-size: 13px; margin-bottom: 17px; }
+    .modal-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .notice {
+      border-left: 3px solid var(--green);
+      padding: 11px 13px;
+      background: rgba(72,245,155,.05);
+      color: var(--muted);
+      font-size: 11px;
+      margin: 15px 0;
+    }
+
+    /* ANIMAÇÕES */
+
+    .reveal { opacity: 0; transform: translateY(15px); transition: opacity .55s, transform .55s; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 950px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+      .preview-wrap { width: min(560px, 100%); margin-inline: auto; }
+      .nav-links { gap: 13px; }
+      .nav-links a { font-size: 11px; }
+      .nav-actions .btn { padding-inline: 12px; }
+      .card-grid { grid-template-columns: repeat(2,1fr); }
+    }
+
+    @media (max-width: 700px) {
+      .container { width: calc(100% - 30px); }
       .nav-inner { min-height: 68px; }
+      .menu-button { display: block; }
+      .nav-actions .btn-secondary { display: none; }
+
       .nav-links {
-        display: none;
         position: absolute;
         top: 68px;
         left: 0;
         right: 0;
-        background: #0c120e;
-        border-bottom: 1px solid var(--border);
-        padding: 20px;
+        display: none;
         flex-direction: column;
         align-items: stretch;
+        gap: 0;
+        padding: 12px 20px 20px;
+        background: #0d130f;
+        border-bottom: 1px solid var(--border);
       }
+
       .nav-links.open { display: flex; }
-      .nav-links a { font-size: 14px; padding: 5px; }
-      .nav-cta { display: none; }
-      .hero { padding: 65px 0 75px; }
-      h1 { font-size: 43px; }
-      .hero-description { font-size: 15px; }
-      .bot-card { padding: 18px; }
-      .floating-tag { left: -5px; }
-      .trust-inner { grid-template-columns: repeat(2,1fr); gap: 18px 8px; }
-      .trust-item { justify-content: flex-start; font-size: 11px; }
-      section { padding: 70px 0; }
-      .features-grid, .commands-grid { grid-template-columns: 1fr; }
-      .feature { padding: 22px; }
-      .security-grid { gap: 30px; }
-      .security-panel { padding: 16px; }
-      .log-row { grid-template-columns: 32px 1fr; }
-      .log-status { grid-column: 2; justify-self: start; }
-      .cta-card { padding: 45px 20px; }
+      .nav-links a { padding: 11px 3px; font-size: 13px; }
+      .nav-actions .btn { min-height: 38px; font-size: 11px; padding: 8px 10px; }
+      .brand-name { font-size: 14px; }
+      .brand-logo { width: 38px; height: 38px; }
+      .hero { padding: 65px 0; }
+      h1 { font-size: clamp(40px, 10vw, 56px); }
+      .hero-description { font-size: 14px; }
+      section.content-section { padding: 70px 0; }
+      .quick-grid { grid-template-columns: repeat(2,1fr); gap: 17px 8px; }
+      .quick-item { justify-content: flex-start; font-size: 11px; }
+      .card-grid, .command-grid, .about-grid, .help-grid { grid-template-columns: 1fr; }
+      .card { padding: 21px; }
+      .preview { padding: 16px; }
+      .command-toolbar { align-items: stretch; }
+      .filter-select { width: 100%; }
+      .command-card-top { flex-wrap: wrap; }
+      .cta { padding: 43px 18px; }
       .footer-inner { align-items: flex-start; flex-direction: column; }
+      .footer-links { gap: 14px; }
     }
+
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
+      }
       .reveal { opacity: 1; transform: none; }
     }
   </style>
@@ -306,269 +833,338 @@
 <body>
   <header class="navbar">
     <div class="container nav-inner">
-      <a class="brand" href="#home" aria-label="YapperBrasilBot home">
-        <div class="brand-icon">🍀</div>
-        <span>YapperBrasilBot<small>Comunidade Brasil</small></span>
+      <a class="brand" href="#inicio" aria-label="Página inicial">
+        <span class="brand-logo">🍀</span>
+        <span>
+          <span class="brand-name">YapperBrasilBot</span>
+          <span class="brand-subtitle">Comunidade Brasil 🇧🇷</span>
+        </span>
       </a>
 
-      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+      <button class="menu-button" id="menuButton" aria-label="Abrir menu" aria-expanded="false">☰</button>
 
-      <nav class="nav-links" id="navLinks">
-        <a href="#features">Features</a>
-        <a href="#security">Security</a>
-        <a href="#commands">Commands</a>
-        <a href="#faq">FAQ</a>
+      <nav class="nav-links" id="navLinks" aria-label="Navegação principal">
+        <a href="#inicio">Início</a>
+        <a href="#funcionalidades">Funcionalidades</a>
+        <a href="#comandos">Comandos</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#ajuda">Ajuda</a>
       </nav>
 
-      <a class="nav-cta" href="https://github.com/tiagomorais564312012-arch/Yapper-Brasil-Bot" target="_blank" rel="noopener noreferrer">⌘ View on GitHub ↗</a>
+      <div class="nav-actions">
+        <button class="btn btn-secondary btn-small" data-modal="login">Entrar</button>
+        <button class="btn btn-primary btn-small" data-modal="invite">＋ Add to Server</button>
+      </div>
     </div>
   </header>
 
   <main>
-    <section class="hero" id="home">
+    <!-- INÍCIO -->
+    <section class="hero" id="inicio">
       <div class="container hero-grid">
         <div class="reveal">
-          <div class="eyebrow"><span class="pulse"></span> BUILT FOR COMUNIDADE BRASIL 🇧🇷</div>
-          <h1>One bot.<br>More control.<br><span class="gradient-text">Better community.</span></h1>
+          <div class="eyebrow"><span class="dot"></span> SEU BOT DE COMUNIDADE</div>
+          <h1>Seu servidor.<br>Suas regras.<br><span class="gradient">Sua comunidade.</span></h1>
+
           <p class="hero-description">
-            Meet YapperBrasilBot — your all-in-one Discord companion for moderation,
-            server security, leveling, economy and community fun.
+            Conheça o YapperBrasilBot! Um bot criado para ajudar a organizar
+            sua comunidade, facilitar a moderação e deixar a experiência
+            dos membros ainda mais divertida. Tudo em um só lugar. 🇧🇷
           </p>
+
           <div class="hero-actions">
-            <a class="btn btn-primary" href="https://github.com/tiagomorais564312012-arch/Yapper-Brasil-Bot" target="_blank" rel="noopener noreferrer">Explore the project ↗</a>
-            <a class="btn btn-secondary" href="#features">Discover features ↓</a>
+            <button class="btn btn-primary" data-modal="invite">🤖 Adicionar ao servidor</button>
+            <a class="btn btn-secondary" href="#comandos">⌘ Explorar comandos</a>
           </div>
-          <div class="hero-note"><span>🍀</span> <span>Made for the community, <strong>with the community.</strong></span></div>
+
+          <div class="hero-note">
+            <span>🍀</span>
+            <span>Feito para a <strong>Comunidade Brasil</strong>, com carinho!</span>
+          </div>
         </div>
 
-        <div class="hero-visual reveal">
-          <div class="glow"></div>
-          <div class="bot-card">
-            <div class="bot-card-top">
-              <div class="bot-profile">
-                <div class="bot-avatar">🍀</div>
-                <div><strong>YapperBrasilBot</strong><small>Community assistant</small></div>
+        <div class="preview-wrap reveal">
+          <div class="preview-glow"></div>
+          <div class="preview">
+            <div class="preview-header">
+              <div class="icon">🍀</div>
+              <div style="flex:1">
+                <strong>YapperBrasilBot</strong>
+                <small>Seu companheiro de comunidade</small>
               </div>
-              <span class="online">● BOT PROJECT</span>
+              <span class="pill"><span class="dot"></span> BOT</span>
             </div>
 
-            <div class="bot-message">
-              <div class="message-heading">✨ Everything your server needs</div>
-              <div class="message-line"><span class="check">✓</span> Moderation and server protection</div>
-              <div class="message-line"><span class="check">✓</span> XP, levels and leaderboard</div>
-              <div class="message-line"><span class="check">✓</span> Economy, shop and inventory</div>
-              <div class="message-line"><span class="check">✓</span> Giveaways, reports and logs</div>
+            <div class="preview-message">
+              <h3>✨ O que você encontra aqui?</h3>
+              <div class="preview-line"><span>✓</span> Ferramentas de moderação</div>
+              <div class="preview-line"><span>✓</span> Proteção contra spam e raids</div>
+              <div class="preview-line"><span>✓</span> XP, níveis e economia</div>
+              <div class="preview-line"><span>✓</span> Sorteios, relatórios e registros</div>
             </div>
 
-            <div class="mini-stats">
-              <div class="mini-stat"><strong>🛡️</strong><span>Security</span></div>
-              <div class="mini-stat"><strong>📈</strong><span>Progression</span></div>
-              <div class="mini-stat"><strong>🎉</strong><span>Community</span></div>
+            <div class="preview-stats">
+              <div class="preview-stat"><b>🛡️</b><small>Segurança</small></div>
+              <div class="preview-stat"><b>📈</b><small>Progressão</small></div>
+              <div class="preview-stat"><b>🎉</b><small>Diversão</small></div>
             </div>
+            <div class="preview-caption">Prévia ilustrativa das funcionalidades do bot.</div>
           </div>
-          <div class="floating-tag">🍀 <span>All-in-one</span> community bot</div>
         </div>
       </div>
     </section>
 
-    <div class="trust-strip">
-      <div class="container trust-inner">
-        <div class="trust-item"><span>🛡️</span> Moderation tools</div>
-        <div class="trust-item"><span>🔒</span> Security features</div>
-        <div class="trust-item"><span>🏆</span> XP & progression</div>
-        <div class="trust-item"><span>🎁</span> Community events</div>
+    <div class="quick-strip">
+      <div class="container quick-grid">
+        <div class="quick-item"><span>🛡️</span> Moderação</div>
+        <div class="quick-item"><span>🔐</span> Segurança</div>
+        <div class="quick-item"><span>🏆</span> XP e níveis</div>
+        <div class="quick-item"><span>🎁</span> Sorteios</div>
       </div>
     </div>
 
-    <section id="features">
+    <!-- FUNCIONALIDADES -->
+    <section class="content-section" id="funcionalidades">
       <div class="container">
-        <div class="section-head reveal">
-          <div class="section-label">Everything in one place</div>
-          <h2>Powerful features.<br><span class="gradient-text">Simple experience.</span></h2>
-          <p>Tools designed to help keep your Discord community organized, engaging and enjoyable.</p>
+        <div class="section-heading reveal">
+          <div class="section-kicker">Feito para sua comunidade</div>
+          <h2>Mais organização.<br><span class="gradient">Mais possibilidades.</span></h2>
+          <p>Conheça as áreas do YapperBrasilBot e descubra como elas podem ajudar sua comunidade.</p>
         </div>
 
-        <div class="features-grid">
-          <article class="feature reveal">
-            <div class="feature-icon">🛡️</div>
-            <h3>Moderation</h3>
-            <p>Manage your community with moderation tools designed to help staff handle disruptive behaviour.</p>
-            <span class="feature-tag">SERVER MANAGEMENT</span>
+        <div class="card-grid">
+          <article class="card reveal">
+            <div class="icon">🛡️</div>
+            <h3>Moderação</h3>
+            <p>Ferramentas para ajudar a equipe a administrar o servidor e lidar com comportamentos inadequados.</p>
+            <span class="tag">ADMINISTRAÇÃO</span>
           </article>
-          <article class="feature reveal">
-            <div class="feature-icon">🔐</div>
-            <h3>Smart Protection</h3>
-            <p>Anti-spam, anti-link, anti-raid and honeypot protections help defend your server against abuse.</p>
-            <span class="feature-tag">SERVER SECURITY</span>
+
+          <article class="card reveal">
+            <div class="icon">🔐</div>
+            <h3>Segurança</h3>
+            <p>Recursos contra spam, links indesejados, raids e outras atividades que atrapalham a comunidade.</p>
+            <span class="tag">PROTEÇÃO</span>
           </article>
-          <article class="feature reveal">
-            <div class="feature-icon">👋</div>
-            <h3>Welcome System</h3>
-            <p>Give new members a friendly introduction and help them feel at home in your community.</p>
-            <span class="feature-tag">COMMUNITY</span>
+
+          <article class="card reveal">
+            <div class="icon">👋</div>
+            <h3>Boas-vindas</h3>
+            <p>Receba novos membros e ajude cada pessoa a encontrar seu espaço na comunidade.</p>
+            <span class="tag">COMUNIDADE</span>
           </article>
-          <article class="feature reveal">
-            <div class="feature-icon">📈</div>
-            <h3>XP & Levels</h3>
-            <p>Encourage participation with experience points, level progression and a leaderboard.</p>
-            <span class="feature-tag">ENGAGEMENT</span>
+
+          <article class="card reveal">
+            <div class="icon">📈</div>
+            <h3>XP e níveis</h3>
+            <p>Incentive a participação com experiência, progressão de níveis e classificação de membros.</p>
+            <span class="tag">PROGRESSÃO</span>
           </article>
-          <article class="feature reveal">
-            <div class="feature-icon">💰</div>
-            <h3>Virtual Economy</h3>
-            <p>Give members more ways to participate with an in-server economy, shop and inventory.</p>
-            <span class="feature-tag">FUN & REWARDS</span>
+
+          <article class="card reveal">
+            <div class="icon">💰</div>
+            <h3>Economia virtual</h3>
+            <p>Explore uma economia interna com loja e inventário para tornar a experiência mais divertida.</p>
+            <span class="tag">DIVERSÃO</span>
           </article>
-          <article class="feature reveal">
-            <div class="feature-icon">🎉</div>
-            <h3>Giveaways & Events</h3>
-            <p>Bring people together with community giveaways and fun activities.</p>
-            <span class="feature-tag">COMMUNITY EVENTS</span>
+
+          <article class="card reveal">
+            <div class="icon">🎉</div>
+            <h3>Sorteios</h3>
+            <p>Organize atividades e sorteios para aproximar os membros e movimentar a comunidade.</p>
+            <span class="tag">EVENTOS</span>
           </article>
-          <article class="feature reveal">
-            <div class="feature-icon">📩</div>
-            <h3>Reports</h3>
-            <p>Give members a way to report concerns so your moderation team can review them.</p>
-            <span class="feature-tag">MEMBER SUPPORT</span>
+
+          <article class="card reveal">
+            <div class="icon">📩</div>
+            <h3>Relatórios</h3>
+            <p>Facilite o envio de denúncias e ajude a equipe de moderação a revisar ocorrências.</p>
+            <span class="tag">SUPORTE</span>
           </article>
-          <article class="feature reveal">
-            <div class="feature-icon">📋</div>
-            <h3>Moderation Logs</h3>
-            <p>Keep track of relevant moderation activity to help staff understand what happened.</p>
-            <span class="feature-tag">STAFF TOOLS</span>
+
+          <article class="card reveal">
+            <div class="icon">📋</div>
+            <h3>Registros da equipe</h3>
+            <p>Organize informações sobre ações de moderação e acompanhe ocorrências importantes.</p>
+            <span class="tag">REGISTROS</span>
           </article>
-          <article class="feature reveal">
-            <div class="feature-icon">⚙️</div>
-            <h3>Built for Your Server</h3>
-            <p>A project focused on bringing useful community tools together in one Discord bot.</p>
-            <span class="feature-tag">ALL-IN-ONE</span>
+
+          <article class="card reveal">
+            <div class="icon">⚙️</div>
+            <h3>Ferramentas reunidas</h3>
+            <p>Tenha diferentes recursos de comunidade reunidos em um projeto com uma identidade própria.</p>
+            <span class="tag">PRATICIDADE</span>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="security-section" id="security">
-      <div class="container security-grid">
-        <div class="reveal">
-          <div class="section-label">Safety comes first</div>
-          <h2>A safer server starts with <span class="gradient-text">better tools.</span></h2>
-          <p style="color:var(--muted);margin-top:18px;font-size:14px">
-            Give moderators more ways to manage unwanted activity and keep the community organized.
-            No bot can prevent every attack, but good tools make moderation easier.
-          </p>
-
-          <div class="security-list">
-            <div class="security-row">
-              <div class="security-icon">🚫</div>
-              <div><strong>Anti-Spam & Anti-Link</strong><p>Help limit repetitive messages and unwanted links.</p></div>
-            </div>
-            <div class="security-row">
-              <div class="security-icon">🚨</div>
-              <div><strong>Anti-Raid Protection</strong><p>Tools intended to help moderators respond to unusual join activity.</p></div>
-            </div>
-            <div class="security-row">
-              <div class="security-icon">📝</div>
-              <div><strong>Reports & Logs</strong><p>Support staff review and record relevant moderation events.</p></div>
-            </div>
-          </div>
+    <!-- COMANDOS -->
+    <section class="content-section soft-section" id="comandos">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="section-kicker">Central de comandos</div>
+          <h2>Encontre o comando <span class="gradient">que procura.</span></h2>
+          <p>Pesquise por nome, categoria ou descrição. A lista abaixo é uma base inicial e deve ser ajustada aos comandos realmente registrados no seu bot.</p>
         </div>
 
-        <div class="security-panel reveal">
-          <div class="panel-title"><span>🛡️ Moderation activity preview</span><span class="online">DEMO</span></div>
-          <div class="log-row">
-            <div class="log-icon">🚫</div>
-            <div class="log-copy"><strong>Spam protection</strong><small>Repeated messages detected</small></div>
-            <span class="log-status">EXAMPLE</span>
+        <div class="command-toolbar reveal">
+          <div class="search-wrap">
+            <span class="search-icon">⌕</span>
+            <input class="search-input" type="search" id="commandSearch" placeholder="Pesquisar comandos..." aria-label="Pesquisar comandos">
           </div>
-          <div class="log-row">
-            <div class="log-icon">🔗</div>
-            <div class="log-copy"><strong>Link filter</strong><small>Unwanted link reviewed</small></div>
-            <span class="log-status">EXAMPLE</span>
-          </div>
-          <div class="log-row">
-            <div class="log-icon">📩</div>
-            <div class="log-copy"><strong>Member report</strong><small>Ready for staff review</small></div>
-            <span class="log-status">EXAMPLE</span>
-          </div>
-          <div class="log-row" style="border-bottom:0">
-            <div class="log-icon">📋</div>
-            <div class="log-copy"><strong>Staff activity</strong><small>Moderation event recorded</small></div>
-            <span class="log-status">EXAMPLE</span>
-          </div>
-          <p style="font-size:10px;color:var(--muted);margin-top:10px">Illustrative preview only — these are not live bot logs.</p>
+
+          <select class="filter-select" id="categoryFilter" aria-label="Filtrar por categoria">
+            <option value="todos">Todas as categorias</option>
+            <option value="Moderação">Moderação</option>
+            <option value="Segurança">Segurança</option>
+            <option value="Comunidade">Comunidade</option>
+            <option value="Economia">Economia</option>
+            <option value="Diversão">Diversão</option>
+          </select>
+        </div>
+
+        <div class="command-count" id="commandCount" aria-live="polite">Carregando comandos...</div>
+        <div class="command-grid" id="commandGrid"></div>
+
+        <div class="empty-state" id="emptyState">
+          <div style="font-size:30px;margin-bottom:8px">🔎</div>
+          <strong>Nenhum comando encontrado</strong>
+          <p style="margin-top:7px;font-size:12px">Tente outro nome ou selecione uma categoria diferente.</p>
+        </div>
+
+        <div class="command-note">
+          ℹ️ <strong>Importante:</strong> esta página é uma interface informativa. Ela não executa comandos no Yapper. Antes de publicar, substitua a lista de exemplo pelos comandos reais do YapperBrasilBot.
         </div>
       </div>
     </section>
 
-    <section id="commands">
+    <!-- SOBRE -->
+    <section class="content-section" id="sobre">
       <div class="container">
-        <div class="section-head reveal">
-          <div class="section-label">Command overview</div>
-          <h2>Tools for your <span class="gradient-text">daily workflow.</span></h2>
-          <p>Explore examples of the command categories the project is designed to support. Actual commands depend on the version installed.</p>
+        <div class="section-heading reveal">
+          <div class="section-kicker">Conheça o projeto</div>
+          <h2>Sobre o <span class="gradient">YapperBrasilBot.</span></h2>
+          <p>Entenda o objetivo do bot e o que você pode fazer neste website.</p>
         </div>
 
-        <div class="commands-grid">
-          <div class="command-group reveal">
-            <h3>🛡️ Moderation</h3>
-            <div class="command"><code>/ban</code><span>Ban a member</span></div>
-            <div class="command"><code>/kick</code><span>Remove a member</span></div>
-            <div class="command"><code>/timeout</code><span>Temporarily restrict a member</span></div>
-            <div class="command"><code>/warn</code><span>Issue a warning</span></div>
-          </div>
-          <div class="command-group reveal">
-            <h3>📈 Community</h3>
-            <div class="command"><code>/leaderboard</code><span>View top members</span></div>
-            <div class="command"><code>/report</code><span>Submit a report</span></div>
-            <div class="command"><code>/giveaway</code><span>Manage giveaways</span></div>
-            <div class="command"><code>/shop</code><span>Explore the economy</span></div>
-          </div>
+        <div class="about-grid">
+          <article class="about-box reveal">
+            <div class="icon">🍀</div>
+            <h3>Sobre o bot</h3>
+            <p>
+              O YapperBrasilBot é um projeto criado para apoiar a Comunidade Brasil.
+              Seu objetivo é reunir ferramentas de moderação, segurança e interação
+              para tornar a administração da comunidade mais prática.
+            </p>
+            <div class="about-points">
+              <div class="about-point"><span>✓</span> Ferramentas para moderadores</div>
+              <div class="about-point"><span>✓</span> Recursos de participação e progressão</div>
+              <div class="about-point"><span>✓</span> Funcionalidades para organizar a comunidade</div>
+            </div>
+          </article>
+
+          <article class="about-box reveal">
+            <div class="icon">🌐</div>
+            <h3>Sobre este website</h3>
+            <p>
+              Este é o espaço informativo do YapperBrasilBot. Aqui você pode conhecer
+              o projeto, consultar a lista de comandos, aprender sobre as funcionalidades
+              e encontrar orientações para começar.
+            </p>
+            <div class="about-points">
+              <div class="about-point"><span>✓</span> Consulte os comandos disponíveis na lista publicada</div>
+              <div class="about-point"><span>✓</span> Conheça as funcionalidades do projeto</div>
+              <div class="about-point"><span>✓</span> Encontre respostas para dúvidas comuns</div>
+            </div>
+          </article>
         </div>
-        <p style="color:var(--muted);font-size:12px;margin-top:17px">Note: the command names above are examples, not a verified list of commands currently available in your bot.</p>
       </div>
     </section>
 
-    <section id="faq">
+    <!-- AJUDA -->
+    <section class="content-section soft-section" id="ajuda">
       <div class="container">
-        <div class="section-head reveal">
-          <div class="section-label">Questions & answers</div>
-          <h2>Frequently asked <span class="gradient-text">questions.</span></h2>
+        <div class="section-heading reveal">
+          <div class="section-kicker">Estamos aqui para ajudar</div>
+          <h2>Como podemos <span class="gradient">ajudar?</span></h2>
+          <p>Orientações para conhecer o bot e utilizar o website.</p>
+        </div>
+
+        <div class="help-grid">
+          <article class="help-card reveal">
+            <div class="icon">📋</div>
+            <h3>Consultar comandos</h3>
+            <p>Use a pesquisa e os filtros para encontrar o comando desejado. Confira a descrição e o uso indicado.</p>
+          </article>
+
+          <article class="help-card reveal">
+            <div class="icon">🤖</div>
+            <h3>Adicionar o bot</h3>
+            <p>Utilize o botão de instalação somente quando a integração oficial e o endereço correto estiverem configurados.</p>
+          </article>
+
+          <article class="help-card reveal">
+            <div class="icon">🔐</div>
+            <h3>Acesso à conta</h3>
+            <p>O login depende de uma integração de autenticação oficial do Yapper. Não informe sua senha neste website.</p>
+          </article>
+        </div>
+
+        <div class="section-heading reveal">
+          <div class="section-kicker">Perguntas frequentes</div>
+          <h2>Dúvidas <span class="gradient">frequentes.</span></h2>
         </div>
 
         <div class="faq-list">
           <details class="reveal">
-            <summary>What is YapperBrasilBot?</summary>
-            <p>YapperBrasilBot is a Discord bot project created for Comunidade Brasil, with a focus on moderation, security and community features.</p>
+            <summary>O que é o YapperBrasilBot?</summary>
+            <p>É um projeto de bot voltado para a Comunidade Brasil, com foco em moderação, segurança e funcionalidades para os membros.</p>
           </details>
+
           <details class="reveal">
-            <summary>Is the source code available?</summary>
-            <p>Visit the GitHub repository to explore the available source code, project files and updates.</p>
+            <summary>Como encontro um comando?</summary>
+            <p>Vá até a seção Comandos, digite o nome ou uma palavra relacionada e utilize o filtro de categoria para refinar os resultados.</p>
           </details>
+
           <details class="reveal">
-            <summary>Does this website show live bot statistics?</summary>
-            <p>No. The cards and activity previews on this website are illustrative. Live statistics require a backend or an API connected to the running bot.</p>
+            <summary>O website executa os comandos?</summary>
+            <p>Não. A lista serve para consulta. Para executar um comando, é necessário utilizar a plataforma onde o bot funciona.</p>
           </details>
+
           <details class="reveal">
-            <summary>How can I contribute?</summary>
-            <p>Check out the GitHub repository to review the project and explore ways to contribute.</p>
+            <summary>Posso entrar com minha conta Yapper?</summary>
+            <p>Somente quando o login oficial estiver integrado. Não digite sua senha em formulários criados apenas para imitar uma tela de login.</p>
           </details>
+
           <details class="reveal">
-            <summary>Does the bot guarantee complete server security?</summary>
-            <p>No. Moderation bots can help reduce abuse, but permissions, configuration, Discord settings and human moderation remain important.</p>
+            <summary>Como adiciono o bot ao meu servidor?</summary>
+            <p>O botão de instalação precisa apontar para o endereço oficial disponibilizado pelo Yapper para esse bot. A publicação pode depender de aprovação da plataforma.</p>
+          </details>
+
+          <details class="reveal">
+            <summary>As informações são atualizadas automaticamente?</summary>
+            <p>Não nesta versão estática. A lista de comandos e outras informações são mantidas no próprio arquivo. Atualizações automáticas exigem uma integração com o bot ou com uma API.</p>
+          </details>
+
+          <details class="reveal">
+            <summary>O website funciona no celular?</summary>
+            <p>Sim. O layout se adapta a telas menores, e o menu de navegação pode ser aberto pelo botão no topo da página.</p>
           </details>
         </div>
       </div>
     </section>
 
+    <!-- CHAMADA FINAL -->
     <section class="cta-section">
       <div class="container">
-        <div class="cta-card reveal">
-          <div class="section-label">Join the project</div>
-          <h2>Let's build a <span class="gradient-text">better community.</span></h2>
-          <p>Explore the code, follow development and discover what YapperBrasilBot brings to Comunidade Brasil.</p>
+        <div class="cta reveal">
+          <div class="eyebrow">🍀 COMUNIDADE BRASIL</div>
+          <h2>Vamos deixar sua comunidade <span class="gradient">mais organizada?</span></h2>
+          <p>Conheça os recursos do YapperBrasilBot e consulte as informações disponíveis para começar.</p>
           <div class="cta-actions">
-            <a class="btn btn-primary" href="https://github.com/tiagomorais564312012-arch/Yapper-Brasil-Bot" target="_blank" rel="noopener noreferrer">Visit GitHub ↗</a>
-            <a class="btn btn-secondary" href="#home">Back to top ↑</a>
+            <button class="btn btn-primary" data-modal="invite">＋ Add to Server</button>
+            <a class="btn btn-secondary" href="#comandos">Ver comandos →</a>
           </div>
         </div>
       </div>
@@ -578,59 +1174,379 @@
   <footer>
     <div class="container footer-inner">
       <div>
-        <a class="brand" href="#home"><div class="brand-icon">🍀</div><span>YapperBrasilBot<small>Comunidade Brasil 🇧🇷</small></span></a>
-        <p class="footer-copy">Made with 💚 for the community.</p>
+        <a class="brand" href="#inicio">
+          <span class="brand-logo">🍀</span>
+          <span>
+            <span class="brand-name">YapperBrasilBot</span>
+            <span class="brand-subtitle">Comunidade Brasil 🇧🇷</span>
+          </span>
+        </a>
+        <p class="footer-copy">Feito com 💚 para a comunidade.</p>
       </div>
-      <div class="footer-links">
-        <a href="#features">Features</a>
-        <a href="#faq">FAQ</a>
-        <a href="https://github.com/tiagomorais564312012-arch/Yapper-Brasil-Bot" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-      </div>
-      <p class="footer-copy">© <span id="year"></span> YapperBrasilBot. All rights reserved.</p>
+
+      <nav class="footer-links" aria-label="Links do rodapé">
+        <a href="#inicio">Início</a>
+        <a href="#funcionalidades">Funcionalidades</a>
+        <a href="#comandos">Comandos</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#ajuda">Ajuda</a>
+        <button class="footer-links-button" style="background:none;border:0;color:inherit;font-size:11px" data-modal="privacy">Privacidade</button>
+      </nav>
+
+      <p class="footer-copy">© <span id="year"></span> YapperBrasilBot</p>
     </div>
   </footer>
 
-  <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+  <button class="back-top" id="backTop" aria-label="Voltar ao topo">↑</button>
+
+  <!-- JANELAS -->
+  <div class="modal" id="siteModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="modalTitle">YapperBrasilBot</h3>
+        <button class="modal-close" id="modalClose" aria-label="Fechar janela">×</button>
+      </div>
+      <p id="modalDescription"></p>
+      <div id="modalNotice" class="notice" hidden></div>
+      <div class="modal-actions" id="modalActions"></div>
+    </div>
+  </div>
 
   <script>
-    const menuToggle = document.getElementById("menuToggle");
-    const navLinks = document.getElementById("navLinks");
-    const backTop = document.getElementById("backTop");
+    /*
+      CONFIGURAÇÃO DO WEBSITE
 
-    document.getElementById("year").textContent = new Date().getFullYear();
+      Configure estes endereços apenas depois de obter os links oficiais.
+      Não coloque tokens, senhas ou chaves secretas neste arquivo público.
+    */
+    const SITE_CONFIG = {
+      botInviteUrl: "",
+      yapperLoginUrl: "",
+      supportUrl: ""
+    };
 
-    menuToggle.addEventListener("click", () => {
-      const open = navLinks.classList.toggle("open");
-      menuToggle.setAttribute("aria-expanded", String(open));
-      menuToggle.textContent = open ? "✕" : "☰";
+    /*
+      LISTA INICIAL DE EXEMPLO.
+      Edite os nomes e descrições para corresponderem aos comandos
+      realmente registrados no YapperBrasilBot.
+    */
+    const COMMANDS = [
+      {
+        name: "/help",
+        category: "Comunidade",
+        description: "Mostra informações de ajuda e orientações de uso.",
+        usage: "/help"
+      },
+      {
+        name: "/ban",
+        category: "Moderação",
+        description: "Bane um membro, se o comando estiver disponível e você tiver permissão.",
+        usage: "/ban <membro> [motivo]"
+      },
+      {
+        name: "/kick",
+        category: "Moderação",
+        description: "Remove um membro do servidor, conforme as permissões configuradas.",
+        usage: "/kick <membro> [motivo]"
+      },
+      {
+        name: "/timeout",
+        category: "Moderação",
+        description: "Aplica uma restrição temporária a um membro.",
+        usage: "/timeout <membro> <duração>"
+      },
+      {
+        name: "/warn",
+        category: "Moderação",
+        description: "Registra uma advertência para um membro.",
+        usage: "/warn <membro> [motivo]"
+      },
+      {
+        name: "/purge",
+        category: "Moderação",
+        description: "Remove mensagens em massa, se essa função estiver implementada.",
+        usage: "/purge <quantidade>"
+      },
+      {
+        name: "/unban",
+        category: "Moderação",
+        description: "Remove um banimento quando o comando e as permissões estão disponíveis.",
+        usage: "/unban <usuário>"
+      },
+      {
+        name: "/warnings",
+        category: "Moderação",
+        description: "Consulta advertências registradas para um membro.",
+        usage: "/warnings <membro>"
+      },
+      {
+        name: "/leaderboard",
+        category: "Comunidade",
+        description: "Exibe uma classificação de membros, se disponível.",
+        usage: "/leaderboard"
+      },
+      {
+        name: "/report",
+        category: "Comunidade",
+        description: "Envia um relatório para a equipe responsável.",
+        usage: "/report <membro> <motivo>"
+      },
+      {
+        name: "/level",
+        category: "Comunidade",
+        description: "Consulta o nível e a experiência de um membro.",
+        usage: "/level [membro]"
+      },
+      {
+        name: "/balance",
+        category: "Economia",
+        description: "Consulta o saldo da economia virtual.",
+        usage: "/balance [membro]"
+      },
+      {
+        name: "/shop",
+        category: "Economia",
+        description: "Consulta os itens disponíveis na loja virtual.",
+        usage: "/shop"
+      },
+      {
+        name: "/inventory",
+        category: "Economia",
+        description: "Consulta o inventário virtual do membro.",
+        usage: "/inventory"
+      },
+      {
+        name: "/giveaway",
+        category: "Diversão",
+        description: "Ferramenta relacionada a sorteios, caso esteja implementada.",
+        usage: "/giveaway"
+      }
+    ];
+
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+    // Ano automático no rodapé
+    $("#year").textContent = new Date().getFullYear();
+
+    // Menu para celulares
+    const menuButton = $("#menuButton");
+    const navLinks = $("#navLinks");
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+      menuButton.textContent = isOpen ? "×" : "☰";
     });
 
-    navLinks.querySelectorAll("a").forEach(link => {
+    $$("#navLinks a").forEach(link => {
       link.addEventListener("click", () => {
         navLinks.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.textContent = "☰";
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.textContent = "☰";
       });
     });
 
+    // Pesquisa e filtro de comandos
+    const commandGrid = $("#commandGrid");
+    const commandSearch = $("#commandSearch");
+    const categoryFilter = $("#categoryFilter");
+    const commandCount = $("#commandCount");
+    const emptyState = $("#emptyState");
+
+    function renderCommands() {
+      const query = commandSearch.value.trim().toLocaleLowerCase("pt-BR");
+      const category = categoryFilter.value;
+
+      const filtered = COMMANDS.filter(command => {
+        const text = [
+          command.name,
+          command.category,
+          command.description,
+          command.usage
+        ].join(" ").toLocaleLowerCase("pt-BR");
+
+        return text.includes(query) &&
+          (category === "todos" || command.category === category);
+      });
+
+      commandGrid.replaceChildren();
+
+      filtered.forEach(command => {
+        const article = document.createElement("article");
+        article.className = "command-card";
+
+        const top = document.createElement("div");
+        top.className = "command-card-top";
+
+        const name = document.createElement("code");
+        name.className = "command-name";
+        name.textContent = command.name;
+
+        const categoryLabel = document.createElement("span");
+        categoryLabel.className = "command-category";
+        categoryLabel.textContent = command.category;
+
+        const description = document.createElement("p");
+        description.textContent = command.description;
+
+        const usage = document.createElement("div");
+        usage.className = "command-usage";
+        usage.textContent = command.usage;
+
+        top.append(name, categoryLabel);
+        article.append(top, description, usage);
+        commandGrid.append(article);
+      });
+
+      commandCount.textContent =
+        `${filtered.length} ${filtered.length === 1 ? "comando encontrado" : "comandos encontrados"}`;
+
+      emptyState.style.display = filtered.length ? "none" : "block";
+      commandGrid.style.display = filtered.length ? "grid" : "none";
+    }
+
+    commandSearch.addEventListener("input", renderCommands);
+    categoryFilter.addEventListener("change", renderCommands);
+    renderCommands();
+
+    // Janelas dos botões
+    const modal = $("#siteModal");
+    const modalTitle = $("#modalTitle");
+    const modalDescription = $("#modalDescription");
+    const modalNotice = $("#modalNotice");
+    const modalActions = $("#modalActions");
+    const modalClose = $("#modalClose");
+    let previousFocus = null;
+
+    const MODALS = {
+      login: {
+        title: "Entrar com Yapper",
+        description: "O acesso à conta precisa ser feito pelo sistema oficial de autenticação do Yapper.",
+        notice: "O login ainda não está conectado. Configure SITE_CONFIG.yapperLoginUrl com o endereço oficial e compatível antes de ativar esta função. Nunca peça a senha do usuário diretamente neste site.",
+        actionText: "Verificar configuração",
+        action: "login"
+      },
+      invite: {
+        title: "Adicionar YapperBrasilBot",
+        description: "Para instalar o bot, é necessário utilizar o link oficial de convite ou instalação disponibilizado pelo Yapper.",
+        notice: "O link de instalação ainda não foi configurado. Preencha SITE_CONFIG.botInviteUrl com o endereço oficial do bot para ativar este botão.",
+        actionText: "Verificar configuração",
+        action: "invite"
+      },
+      privacy: {
+        title: "Privacidade",
+        description: "Esta versão estática do site não implementa autenticação, não recebe senhas e não possui conexão própria com a conta Yapper.",
+        notice: "Fontes externas, como a fonte tipográfica, podem fazer conexões ao serem carregadas. Antes de ativar login ou recursos que tratem dados pessoais, publique uma política de privacidade adequada.",
+        actionText: "Entendi",
+        action: "close"
+      }
+    };
+
+    function closeModal() {
+      modal.classList.remove("open");
+      document.body.classList.remove("modal-open");
+      if (previousFocus) previousFocus.focus();
+    }
+
+    function openModal(type, trigger) {
+      const data = MODALS[type];
+      if (!data) return;
+
+      previousFocus = trigger || document.activeElement;
+      modalTitle.textContent = data.title;
+      modalDescription.textContent = data.description;
+      modalNotice.textContent = data.notice;
+      modalNotice.hidden = false;
+      modalActions.replaceChildren();
+
+      const configuredUrl =
+        data.action === "login" ? SITE_CONFIG.yapperLoginUrl :
+        data.action === "invite" ? SITE_CONFIG.botInviteUrl : "";
+
+      if (configuredUrl) {
+        const link = document.createElement("a");
+        link.className = "btn btn-primary";
+        link.href = configuredUrl;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = data.action === "login" ? "Continuar com Yapper ↗" : "Adicionar bot ↗";
+        modalActions.append(link);
+      } else {
+        const button = document.createElement("button");
+        button.className = "btn btn-secondary";
+        button.textContent = data.action === "close" ? "Fechar" : "Entendi";
+        button.addEventListener("click", closeModal);
+        modalActions.append(button);
+      }
+
+      modal.classList.add("open");
+      document.body.classList.add("modal-open");
+      modalClose.focus();
+    }
+
+    $$("[data-modal]").forEach(button => {
+      button.addEventListener("click", () => {
+        openModal(button.dataset.modal, button);
+      });
+    });
+
+    modalClose.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", event => {
+      if (event.target === modal) closeModal();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && modal.classList.contains("open")) {
+        closeModal();
+      }
+    });
+
+    // Botão voltar ao topo
+    const backTop = $("#backTop");
+
     window.addEventListener("scroll", () => {
       backTop.classList.toggle("visible", window.scrollY > 450);
-    });
+    }, { passive: true });
 
     backTop.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
+    // Animações de entrada
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
 
-    document.querySelectorAll(".reveal").forEach(element => observer.observe(element));
+      $$(".reveal").forEach(element => observer.observe(element));
+    } else {
+      $$(".reveal").forEach(element => element.classList.add("visible"));
+    }
+
+    // Destaca a seção atual no menu
+    if ("IntersectionObserver" in window) {
+      const sectionObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            $$("#navLinks a").forEach(link => {
+              link.classList.toggle(
+                "active",
+                link.getAttribute("href") === "#" + entry.target.id
+              );
+            });
+          }
+        });
+      }, { rootMargin: "-25% 0px -65% 0px" });
+
+      $$("main section[id]").forEach(section => sectionObserver.observe(section));
+    }
   </script>
 </body>
 </html>
