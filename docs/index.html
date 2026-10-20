@@ -1,0 +1,637 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080d0b">
+  <meta name="description" content="Meet YapperBrasilBot, the bot built to make Comunidade Brasil safer, more organized and more fun.">
+  <meta property="og:title" content="YapperBrasilBot | Comunidade Brasil">
+  <meta property="og:description" content="Moderation, security, XP, economy, giveaways and more.">
+  <title>YapperBrasilBot — Official Website</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #080d0b;
+      --panel: #101713;
+      --panel2: #141e18;
+      --green: #40f59b;
+      --green2: #19c878;
+      --text: #f2f8f4;
+      --muted: #9aa99f;
+      --border: rgba(255,255,255,.09);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 95px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse at 15% 5%, rgba(32,210,119,.12), transparent 35%),
+        radial-gradient(ellipse at 90% 45%, rgba(20,120,70,.09), transparent 35%);
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: auto; }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(8,13,11,.82);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      white-space: nowrap;
+    }
+    .brand-icon {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(145deg, #48f5a0, #13894f);
+      color: #06170d;
+      border-radius: 14px;
+      box-shadow: 0 0 25px rgba(64,245,155,.18);
+      font-size: 22px;
+    }
+    .brand span small { display: block; color: var(--muted); font-size: 10px; font-family: "DM Sans", sans-serif; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 25px; color: #b5c2b9; font-size: 13px; font-weight: 600; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta, .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 14px;
+      transition: transform .2s, background .2s, border-color .2s;
+    }
+    .nav-cta, .btn-primary { color: #06170d; background: var(--green); }
+    .nav-cta:hover, .btn-primary:hover { background: #6ff9b5; transform: translateY(-2px); }
+    .btn-secondary { border: 1px solid var(--border); background: rgba(255,255,255,.035); }
+    .btn-secondary:hover { border-color: var(--green); transform: translateY(-2px); }
+
+    .menu-toggle {
+      display: none;
+      color: var(--text);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 22px;
+    }
+
+    .hero { padding: 105px 0 95px; position: relative; }
+    .hero-grid { display: grid; grid-template-columns: 1.12fr .88fr; align-items: center; gap: 60px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--green);
+      background: rgba(64,245,155,.07);
+      border: 1px solid rgba(64,245,155,.18);
+      border-radius: 100px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .3px;
+      margin-bottom: 25px;
+    }
+    .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px var(--green); }
+    h1, h2, h3 { font-family: "Space Grotesk", sans-serif; line-height: 1.13; letter-spacing: -1.4px; }
+    h1 { font-size: clamp(42px, 5.6vw, 72px); max-width: 690px; }
+    .gradient-text { color: var(--green); }
+    .hero-description { color: var(--muted); font-size: 17px; max-width: 520px; margin: 25px 0 30px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-note { display: flex; align-items: center; gap: 9px; margin-top: 28px; color: var(--muted); font-size: 12px; }
+    .hero-note strong { color: var(--text); }
+    .hero-visual { position: relative; }
+    .glow {
+      position: absolute;
+      inset: 10% 0;
+      background: var(--green);
+      opacity: .11;
+      filter: blur(85px);
+      border-radius: 50%;
+    }
+    .bot-card {
+      position: relative;
+      border: 1px solid rgba(64,245,155,.2);
+      background: linear-gradient(145deg, rgba(23,39,29,.96), rgba(12,19,15,.97));
+      border-radius: 28px;
+      padding: 27px;
+      box-shadow: 0 30px 100px rgba(0,0,0,.3);
+      transform: rotate(1deg);
+    }
+    .bot-card-top { display: flex; align-items: center; justify-content: space-between; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .bot-profile { display: flex; align-items: center; gap: 13px; }
+    .bot-avatar { width: 55px; height: 55px; display: grid; place-items: center; background: linear-gradient(145deg, #4cf6a2, #137848); border-radius: 17px; font-size: 29px; }
+    .bot-profile strong { display: block; font-size: 15px; }
+    .bot-profile small { color: var(--muted); font-size: 12px; }
+    .online { color: var(--green); font-size: 11px; font-weight: 800; background: rgba(64,245,155,.09); border-radius: 30px; padding: 6px 10px; }
+    .bot-message { background: rgba(255,255,255,.035); border: 1px solid var(--border); border-radius: 15px; padding: 17px; margin-top: 17px; }
+    .message-heading { font-size: 12px; font-weight: 800; margin-bottom: 9px; }
+    .message-line { display: flex; gap: 10px; align-items: center; color: #c3d0c7; font-size: 12px; margin: 8px 0; }
+    .check { color: var(--green); font-weight: 900; }
+    .mini-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 15px; }
+    .mini-stat { background: rgba(64,245,155,.055); border: 1px solid rgba(64,245,155,.12); border-radius: 13px; padding: 13px 8px; text-align: center; }
+    .mini-stat strong { display: block; color: var(--green); font-family: "Space Grotesk",sans-serif; font-size: 20px; }
+    .mini-stat span { display: block; font-size: 10px; color: var(--muted); }
+    .floating-tag { position: absolute; bottom: -22px; left: -25px; padding: 12px 16px; background: #17241b; border: 1px solid rgba(64,245,155,.23); border-radius: 13px; box-shadow: 0 15px 40px #0005; font-size: 12px; font-weight: 800; }
+    .floating-tag span { color: var(--green); }
+
+    .trust-strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: rgba(255,255,255,.018); }
+    .trust-inner { display: grid; grid-template-columns: repeat(4,1fr); padding: 25px 0; gap: 20px; }
+    .trust-item { display: flex; align-items: center; justify-content: center; gap: 10px; color: #c4d0c8; font-size: 13px; font-weight: 700; }
+    .trust-item span { font-size: 20px; }
+
+    section { padding: 95px 0; }
+    .section-head { max-width: 650px; margin-bottom: 42px; }
+    .section-label { color: var(--green); font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 13px; }
+    h2 { font-size: clamp(32px,4vw,48px); }
+    .section-head p { color: var(--muted); margin-top: 17px; font-size: 15px; }
+    .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 17px; }
+    .feature {
+      background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      transition: transform .25s, border-color .25s, background .25s;
+    }
+    .feature:hover { transform: translateY(-5px); border-color: rgba(64,245,155,.3); background: rgba(64,245,155,.035); }
+    .feature-icon { width: 48px; height: 48px; display: grid; place-items: center; background: rgba(64,245,155,.09); border: 1px solid rgba(64,245,155,.13); border-radius: 14px; font-size: 23px; margin-bottom: 21px; }
+    .feature h3 { font-size: 19px; letter-spacing: -.4px; margin-bottom: 10px; }
+    .feature p { color: var(--muted); font-size: 13px; }
+    .feature-tag { display: inline-block; margin-top: 18px; font-size: 10px; color: var(--green); background: rgba(64,245,155,.07); padding: 5px 8px; border-radius: 6px; font-weight: 800; }
+
+    .security-section { background: linear-gradient(180deg, transparent, rgba(26,69,42,.12), transparent); }
+    .security-grid { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 65px; }
+    .security-list { display: grid; gap: 15px; margin-top: 27px; }
+    .security-row { display: flex; align-items: flex-start; gap: 13px; }
+    .security-icon { flex-shrink: 0; width: 35px; height: 35px; display: grid; place-items: center; border-radius: 10px; background: rgba(64,245,155,.09); color: var(--green); }
+    .security-row strong { display: block; font-size: 14px; margin-bottom: 3px; }
+    .security-row p { color: var(--muted); font-size: 12px; }
+    .security-panel { border: 1px solid var(--border); background: var(--panel); padding: 25px; border-radius: 22px; }
+    .panel-title { display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 800; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+    .log-row { display: grid; grid-template-columns: 36px 1fr auto; gap: 12px; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--border); }
+    .log-icon { width: 36px; height: 36px; display: grid; place-items: center; background: rgba(255,255,255,.045); border-radius: 11px; }
+    .log-copy strong { display: block; font-size: 12px; }
+    .log-copy small { display: block; color: var(--muted); font-size: 11px; }
+    .log-status { font-size: 10px; color: var(--green); background: rgba(64,245,155,.08); padding: 5px 7px; border-radius: 6px; }
+
+    .commands-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 15px; }
+    .command-group { padding: 23px; border-radius: 17px; border: 1px solid var(--border); background: rgba(255,255,255,.02); }
+    .command-group h3 { font-size: 17px; letter-spacing: -.4px; margin-bottom: 17px; display: flex; align-items: center; gap: 10px; }
+    .command { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 10px 12px; background: rgba(0,0,0,.18); border-radius: 9px; margin-top: 7px; }
+    .command code { font-size: 12px; color: var(--green); font-family: Consolas, monospace; }
+    .command span { font-size: 11px; color: var(--muted); text-align: right; }
+
+    .cta-section { padding: 25px 0 100px; }
+    .cta-card {
+      position: relative;
+      overflow: hidden;
+      padding: 65px 30px;
+      text-align: center;
+      border: 1px solid rgba(64,245,155,.22);
+      border-radius: 27px;
+      background: radial-gradient(ellipse at top, rgba(64,245,155,.12), transparent 65%), #101713;
+    }
+    .cta-card h2 { max-width: 650px; margin: auto; }
+    .cta-card p { color: var(--muted); max-width: 500px; margin: 17px auto 25px; font-size: 14px; }
+    .cta-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+    .faq-list { max-width: 800px; display: grid; gap: 10px; }
+    details { border: 1px solid var(--border); background: rgba(255,255,255,.02); border-radius: 13px; padding: 18px 20px; }
+    summary { cursor: pointer; font-size: 14px; font-weight: 800; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; color: var(--green); font-size: 21px; }
+    details[open] summary::after { content: "−"; }
+    details p { color: var(--muted); font-size: 13px; margin-top: 13px; }
+
+    footer { border-top: 1px solid var(--border); padding: 30px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .footer-copy { color: var(--muted); font-size: 12px; margin-top: 8px; }
+    .footer-links { display: flex; gap: 20px; color: var(--muted); font-size: 12px; }
+    .footer-links a:hover { color: var(--green); }
+    .back-top { position: fixed; bottom: 20px; right: 20px; z-index: 10; width: 43px; height: 43px; border: 1px solid var(--border); border-radius: 13px; background: var(--panel2); color: var(--green); font-size: 20px; opacity: 0; pointer-events: none; transition: opacity .2s; }
+    .back-top.visible { opacity: 1; pointer-events: auto; }
+
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s, transform .65s; }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .hero-grid, .security-grid { grid-template-columns: 1fr; gap: 50px; }
+      .hero { padding-top: 75px; }
+      .hero-visual { max-width: 550px; width: 100%; margin: auto; }
+      .features-grid { grid-template-columns: repeat(2,1fr); }
+      .nav-links { gap: 14px; }
+      .nav-links a { font-size: 12px; }
+      .nav-cta { padding: 10px 12px; font-size: 12px; }
+    }
+    @media (max-width: 650px) {
+      .container { width: min(100% - 30px, 1120px); }
+      .menu-toggle { display: block; }
+      .nav-inner { min-height: 68px; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: #0c120e;
+        border-bottom: 1px solid var(--border);
+        padding: 20px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 14px; padding: 5px; }
+      .nav-cta { display: none; }
+      .hero { padding: 65px 0 75px; }
+      h1 { font-size: 43px; }
+      .hero-description { font-size: 15px; }
+      .bot-card { padding: 18px; }
+      .floating-tag { left: -5px; }
+      .trust-inner { grid-template-columns: repeat(2,1fr); gap: 18px 8px; }
+      .trust-item { justify-content: flex-start; font-size: 11px; }
+      section { padding: 70px 0; }
+      .features-grid, .commands-grid { grid-template-columns: 1fr; }
+      .feature { padding: 22px; }
+      .security-grid { gap: 30px; }
+      .security-panel { padding: 16px; }
+      .log-row { grid-template-columns: 32px 1fr; }
+      .log-status { grid-column: 2; justify-self: start; }
+      .cta-card { padding: 45px 20px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="#home" aria-label="YapperBrasilBot home">
+        <div class="brand-icon">🍀</div>
+        <span>YapperBrasilBot<small>Comunidade Brasil</small></span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#features">Features</a>
+        <a href="#security">Security</a>
+        <a href="#commands">Commands</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <a class="nav-cta" href="https://github.com/tiagomorais564312012-arch/Yapper-Brasil-Bot" target="_blank" rel="noopener noreferrer">⌘ View on GitHub ↗</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div class="eyebrow"><span class="pulse"></span> BUILT FOR COMUNIDADE BRASIL 🇧🇷</div>
+          <h1>One bot.<br>More control.<br><span class="gradient-text">Better community.</span></h1>
+          <p class="hero-description">
+            Meet YapperBrasilBot — your all-in-one Discord companion for moderation,
+            server security, leveling, economy and community fun.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://github.com/tiagomorais564312012-arch/Yapper-Brasil-Bot" target="_blank" rel="noopener noreferrer">Explore the project ↗</a>
+            <a class="btn btn-secondary" href="#features">Discover features ↓</a>
+          </div>
+          <div class="hero-note"><span>🍀</span> <span>Made for the community, <strong>with the community.</strong></span></div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <div class="glow"></div>
+          <div class="bot-card">
+            <div class="bot-card-top">
+              <div class="bot-profile">
+                <div class="bot-avatar">🍀</div>
+                <div><strong>YapperBrasilBot</strong><small>Community assistant</small></div>
+              </div>
+              <span class="online">● BOT PROJECT</span>
+            </div>
+
+            <div class="bot-message">
+              <div class="message-heading">✨ Everything your server needs</div>
+              <div class="message-line"><span class="check">✓</span> Moderation and server protection</div>
+              <div class="message-line"><span class="check">✓</span> XP, levels and leaderboard</div>
+              <div class="message-line"><span class="check">✓</span> Economy, shop and inventory</div>
+              <div class="message-line"><span class="check">✓</span> Giveaways, reports and logs</div>
+            </div>
+
+            <div class="mini-stats">
+              <div class="mini-stat"><strong>🛡️</strong><span>Security</span></div>
+              <div class="mini-stat"><strong>📈</strong><span>Progression</span></div>
+              <div class="mini-stat"><strong>🎉</strong><span>Community</span></div>
+            </div>
+          </div>
+          <div class="floating-tag">🍀 <span>All-in-one</span> community bot</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust-strip">
+      <div class="container trust-inner">
+        <div class="trust-item"><span>🛡️</span> Moderation tools</div>
+        <div class="trust-item"><span>🔒</span> Security features</div>
+        <div class="trust-item"><span>🏆</span> XP & progression</div>
+        <div class="trust-item"><span>🎁</span> Community events</div>
+      </div>
+    </div>
+
+    <section id="features">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-label">Everything in one place</div>
+          <h2>Powerful features.<br><span class="gradient-text">Simple experience.</span></h2>
+          <p>Tools designed to help keep your Discord community organized, engaging and enjoyable.</p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature reveal">
+            <div class="feature-icon">🛡️</div>
+            <h3>Moderation</h3>
+            <p>Manage your community with moderation tools designed to help staff handle disruptive behaviour.</p>
+            <span class="feature-tag">SERVER MANAGEMENT</span>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-icon">🔐</div>
+            <h3>Smart Protection</h3>
+            <p>Anti-spam, anti-link, anti-raid and honeypot protections help defend your server against abuse.</p>
+            <span class="feature-tag">SERVER SECURITY</span>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-icon">👋</div>
+            <h3>Welcome System</h3>
+            <p>Give new members a friendly introduction and help them feel at home in your community.</p>
+            <span class="feature-tag">COMMUNITY</span>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-icon">📈</div>
+            <h3>XP & Levels</h3>
+            <p>Encourage participation with experience points, level progression and a leaderboard.</p>
+            <span class="feature-tag">ENGAGEMENT</span>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-icon">💰</div>
+            <h3>Virtual Economy</h3>
+            <p>Give members more ways to participate with an in-server economy, shop and inventory.</p>
+            <span class="feature-tag">FUN & REWARDS</span>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-icon">🎉</div>
+            <h3>Giveaways & Events</h3>
+            <p>Bring people together with community giveaways and fun activities.</p>
+            <span class="feature-tag">COMMUNITY EVENTS</span>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-icon">📩</div>
+            <h3>Reports</h3>
+            <p>Give members a way to report concerns so your moderation team can review them.</p>
+            <span class="feature-tag">MEMBER SUPPORT</span>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-icon">📋</div>
+            <h3>Moderation Logs</h3>
+            <p>Keep track of relevant moderation activity to help staff understand what happened.</p>
+            <span class="feature-tag">STAFF TOOLS</span>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-icon">⚙️</div>
+            <h3>Built for Your Server</h3>
+            <p>A project focused on bringing useful community tools together in one Discord bot.</p>
+            <span class="feature-tag">ALL-IN-ONE</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="security-section" id="security">
+      <div class="container security-grid">
+        <div class="reveal">
+          <div class="section-label">Safety comes first</div>
+          <h2>A safer server starts with <span class="gradient-text">better tools.</span></h2>
+          <p style="color:var(--muted);margin-top:18px;font-size:14px">
+            Give moderators more ways to manage unwanted activity and keep the community organized.
+            No bot can prevent every attack, but good tools make moderation easier.
+          </p>
+
+          <div class="security-list">
+            <div class="security-row">
+              <div class="security-icon">🚫</div>
+              <div><strong>Anti-Spam & Anti-Link</strong><p>Help limit repetitive messages and unwanted links.</p></div>
+            </div>
+            <div class="security-row">
+              <div class="security-icon">🚨</div>
+              <div><strong>Anti-Raid Protection</strong><p>Tools intended to help moderators respond to unusual join activity.</p></div>
+            </div>
+            <div class="security-row">
+              <div class="security-icon">📝</div>
+              <div><strong>Reports & Logs</strong><p>Support staff review and record relevant moderation events.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="security-panel reveal">
+          <div class="panel-title"><span>🛡️ Moderation activity preview</span><span class="online">DEMO</span></div>
+          <div class="log-row">
+            <div class="log-icon">🚫</div>
+            <div class="log-copy"><strong>Spam protection</strong><small>Repeated messages detected</small></div>
+            <span class="log-status">EXAMPLE</span>
+          </div>
+          <div class="log-row">
+            <div class="log-icon">🔗</div>
+            <div class="log-copy"><strong>Link filter</strong><small>Unwanted link reviewed</small></div>
+            <span class="log-status">EXAMPLE</span>
+          </div>
+          <div class="log-row">
+            <div class="log-icon">📩</div>
+            <div class="log-copy"><strong>Member report</strong><small>Ready for staff review</small></div>
+            <span class="log-status">EXAMPLE</span>
+          </div>
+          <div class="log-row" style="border-bottom:0">
+            <div class="log-icon">📋</div>
+            <div class="log-copy"><strong>Staff activity</strong><small>Moderation event recorded</small></div>
+            <span class="log-status">EXAMPLE</span>
+          </div>
+          <p style="font-size:10px;color:var(--muted);margin-top:10px">Illustrative preview only — these are not live bot logs.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="commands">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-label">Command overview</div>
+          <h2>Tools for your <span class="gradient-text">daily workflow.</span></h2>
+          <p>Explore examples of the command categories the project is designed to support. Actual commands depend on the version installed.</p>
+        </div>
+
+        <div class="commands-grid">
+          <div class="command-group reveal">
+            <h3>🛡️ Moderation</h3>
+            <div class="command"><code>/ban</code><span>Ban a member</span></div>
+            <div class="command"><code>/kick</code><span>Remove a member</span></div>
+            <div class="command"><code>/timeout</code><span>Temporarily restrict a member</span></div>
+            <div class="command"><code>/warn</code><span>Issue a warning</span></div>
+          </div>
+          <div class="command-group reveal">
+            <h3>📈 Community</h3>
+            <div class="command"><code>/leaderboard</code><span>View top members</span></div>
+            <div class="command"><code>/report</code><span>Submit a report</span></div>
+            <div class="command"><code>/giveaway</code><span>Manage giveaways</span></div>
+            <div class="command"><code>/shop</code><span>Explore the economy</span></div>
+          </div>
+        </div>
+        <p style="color:var(--muted);font-size:12px;margin-top:17px">Note: the command names above are examples, not a verified list of commands currently available in your bot.</p>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-label">Questions & answers</div>
+          <h2>Frequently asked <span class="gradient-text">questions.</span></h2>
+        </div>
+
+        <div class="faq-list">
+          <details class="reveal">
+            <summary>What is YapperBrasilBot?</summary>
+            <p>YapperBrasilBot is a Discord bot project created for Comunidade Brasil, with a focus on moderation, security and community features.</p>
+          </details>
+          <details class="reveal">
+            <summary>Is the source code available?</summary>
+            <p>Visit the GitHub repository to explore the available source code, project files and updates.</p>
+          </details>
+          <details class="reveal">
+            <summary>Does this website show live bot statistics?</summary>
+            <p>No. The cards and activity previews on this website are illustrative. Live statistics require a backend or an API connected to the running bot.</p>
+          </details>
+          <details class="reveal">
+            <summary>How can I contribute?</summary>
+            <p>Check out the GitHub repository to review the project and explore ways to contribute.</p>
+          </details>
+          <details class="reveal">
+            <summary>Does the bot guarantee complete server security?</summary>
+            <p>No. Moderation bots can help reduce abuse, but permissions, configuration, Discord settings and human moderation remain important.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-card reveal">
+          <div class="section-label">Join the project</div>
+          <h2>Let's build a <span class="gradient-text">better community.</span></h2>
+          <p>Explore the code, follow development and discover what YapperBrasilBot brings to Comunidade Brasil.</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="https://github.com/tiagomorais564312012-arch/Yapper-Brasil-Bot" target="_blank" rel="noopener noreferrer">Visit GitHub ↗</a>
+            <a class="btn btn-secondary" href="#home">Back to top ↑</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <a class="brand" href="#home"><div class="brand-icon">🍀</div><span>YapperBrasilBot<small>Comunidade Brasil 🇧🇷</small></span></a>
+        <p class="footer-copy">Made with 💚 for the community.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://github.com/tiagomorais564312012-arch/Yapper-Brasil-Bot" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      </div>
+      <p class="footer-copy">© <span id="year"></span> YapperBrasilBot. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+    const backTop = document.getElementById("backTop");
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    menuToggle.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(open));
+      menuToggle.textContent = open ? "✕" : "☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    window.addEventListener("scroll", () => {
+      backTop.classList.toggle("visible", window.scrollY > 450);
+    });
+
+    backTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach(element => observer.observe(element));
+  </script>
+</body>
+</html>
